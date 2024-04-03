@@ -6,8 +6,11 @@ function App() {
   return (
     <>
       <div className="App">
-        <Header />
-        <Hero />
+        <div>
+          <div className="white-gradient"></div>
+          <Header />
+          <Hero />
+        </div>
       </div>
     </>
   );
