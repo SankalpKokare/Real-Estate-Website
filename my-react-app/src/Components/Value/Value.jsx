@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Accordion,
   AccordionItem,
@@ -39,10 +39,19 @@ function Value() {
             preExpanded={[0]}
           >
             {data.map((item, i) => {
+              const [className, setClassname] = useState(null);
               return (
-                <AccordionItem className="accordionItem" key={i} uuid={i}>
+                <AccordionItem className={`accordionItem ${className}`} key={i} uuid={i}>
                   <AccordionItemHeading>
-                    <AccordionItemButton className="flexCenter accordionCenter">
+                    <AccordionItemButton className="flexCenter accordionButton">
+                      <AccordionItemState>
+                        {({ expanded }) =>
+                          expanded
+                            ? setClassname("expanded")
+                            : setClassname("collapse")
+                        }
+                      </AccordionItemState>
+
                       <div className="flexCenter icon">{item.icon}</div>
                       <span className="primaryText">{item.heading}</span>
                       <div className="flexCenter icon">

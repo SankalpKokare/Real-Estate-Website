@@ -23,6 +23,11 @@
   margin-bottom: 20px;
 }
 
+.accordionItem.expanded {
+  box-shadow: var(--shadow);
+  box-shadow: 6px;
+}
+
 .accordionButton {
   background: white;
   padding: 1rem;
