@@ -15,6 +15,7 @@ function Residencies() {
         </div>
 
         <Swiper {...sliderSettings}>
+          <SliderButton />
           {data.map((card, i) => (
             <SwiperSlide key={i}>
               <div className="flexColStart r-card">
@@ -35,5 +36,14 @@ function Residencies() {
     </section>
   );
 }
-
 export default Residencies;
+
+const SliderButton = () => {
+  const swiper = useSwiper();
+  return (
+    <div className="flexCenter r-buttons">
+      <button onClick={() => swiper.slidePrev()}>&lt;</button>
+      <button onClick={() => swiper.slideNext()}>&gt;</button>
+    </div>
+  );
+};
