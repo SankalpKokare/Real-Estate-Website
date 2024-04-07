@@ -7,7 +7,7 @@ function Footer() {
       <div className="paddings innerWidth flexCenter f-container">
         {/* Left side */}
         <div className="flexColStart f-left">
-          <img src="./logo21.png" alt="" width={120} />
+          <img src="./logo2.png" alt="" width={120} />
 
           <span className="secondaryText">
             Our vision is to make all people <br />
