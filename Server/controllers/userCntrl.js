@@ -106,3 +106,42 @@ export const cancelBooking = asyncHandler(async (req, res) => {
 
     }
 })
+
+//function to add a residence in  favorites list of a user 
+
+export const toFav = asyncHandler(async (req, res) => {
+    const { email } = req.body;
+    const { rid } = req.params;
+
+    try {
+        const user = await prisma.user.findUnique({
+            where: { email }
+        })
+
+        // if fav is there then remove or add
+        if (user.favResidenciesID.includes(rid)) {
+            const updateUser = await prisma.user.update({
+                where: { email },
+                data: {
+                    favResidenciesID: {
+                        set: user.favResidenciesID.filter((id) => id !== rid)
+                    }
+                }
+            });
+
+            res.send({ message: "Remove from favorites", user: updateUser })
+        } else {
+            const updateUser = await prisma.user.update({
+                where: { email },
+                data: {
+                    favResidenciesID: {
+                        push: rid
+                    }
+                }
+            })
+            res.send({ message: "Updated favorites", user: updateUser })
+        }
+    } catch (err) {
+
+    }
+})
