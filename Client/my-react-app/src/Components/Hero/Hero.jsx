@@ -1,7 +1,7 @@
 import React from "react";
 import "./Hero.css";
-import { HiLocationMarker } from "react-icons/hi";
 import CountUp from "react-countup";
+import SearchBar from "../SearchBar/SearchBar";
 
 function Hero() {
   return (
@@ -20,14 +20,14 @@ function Hero() {
           </div>
 
           <div className="flexColStart hero-des">
-            <span className="secondaryText">Find a variety of properties that suit you vary easily</span>
-            <span className="secondaryText">Forgot all difficulties in finding a residence for you</span>
+            <span className="secondaryText">
+              Find a variety of properties that suit you vary easily
+            </span>
+            <span className="secondaryText">
+              Forgot all difficulties in finding a residence for you
+            </span>
           </div>
-          <div className="flexCenter search-bar">
-            <HiLocationMarker color="var(--blue)" size={25}></HiLocationMarker>
-            <input type="text" name="" id="" />
-            <button className="button">Search</button>
-          </div>
+          <SearchBar />
 
           <div className="flexCenter stats">
             <div className="flexColCenter stat">
