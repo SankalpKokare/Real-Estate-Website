@@ -3,6 +3,7 @@ import SearchBar from "../../Components/SearchBar/SearchBar";
 import "./Properties.css";
 import useProperties from "../../hooks/useProperties";
 import { PuffLoader } from "react-spinners";
+import PropertyCard from "../../Components/PropertyCard/PropertyCard";
 function Properties() {
   const { data, isError, isLoading } = useProperties();
 
@@ -27,10 +28,16 @@ function Properties() {
       </div>
     );
   }
+  console.log(data);
   return (
     <div className="wrapper">
       <div className="flexColCenter paddings innerWidth properties-container">
         <SearchBar />
+        <div className="paddings flexCenter properties">
+          {data.map((card, i) => (
+            <PropertyCard card={card} key={i} />
+          ))}
+        </div>
       </div>
     </div>
   );
