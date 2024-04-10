@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import "./App.css";
-
+import { MantineProvider } from "@mantine/core";
 import Website from "./pages/Website.jsx";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Layout from "./Components/Layout/Layout.jsx";
@@ -14,23 +14,25 @@ function App() {
   const queryClient = new QueryClient();
   return (
     <>
-      <QueryClientProvider client={queryClient}>
-        <BrowserRouter>
-          <Suspense fallback={<div>Loading....</div>}>
-            <Routes>
-              <Route path="/" element={<Layout />}>
-                <Route index element={<Website />} />
-                <Route path="/properties">
-                  <Route index element={<Properties />} />
-                  <Route path=":propertyId" element={<Property />} />
+      <MantineProvider>
+        <QueryClientProvider client={queryClient}>
+          <BrowserRouter>
+            <Suspense fallback={<div>Loading....</div>}>
+              <Routes>
+                <Route path="/" element={<Layout />}>
+                  <Route index element={<Website />} />
+                  <Route path="/properties">
+                    <Route index element={<Properties />} />
+                    <Route path=":propertyId" element={<Property />} />
+                  </Route>
                 </Route>
-              </Route>
-            </Routes>
-          </Suspense>
-        </BrowserRouter>
-        <ToastContainer />
-        <ReactQueryDevtools initialIsOpen={false} />
-      </QueryClientProvider>
+              </Routes>
+            </Suspense>
+          </BrowserRouter>
+          <ToastContainer />
+          <ReactQueryDevtools initialIsOpen={false} />
+        </QueryClientProvider>
+      </MantineProvider>
     </>
   );
 }

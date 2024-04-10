@@ -1,6 +1,7 @@
 import "./Header.css";
 import { Link, NavLink } from "react-router-dom";
 import { useAuth0 } from "@auth0/auth0-react";
+import ProfileMenu from "../ProfileMenu/ProfileMenu";
 function Header() {
   const { loginWithRedirect, isAuthenticated, user, logout } = useAuth0();
   return (
@@ -19,7 +20,7 @@ function Header() {
               Login
             </button>
           ) : (
-            <div> User Profile </div>
+            <ProfileMenu user={user} logout={logout} />
           )}
         </div>
       </div>
