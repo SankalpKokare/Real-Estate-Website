@@ -8,17 +8,27 @@ import { createUser } from "../../utils/api";
 import { useAuth0 } from "@auth0/auth0-react";
 
 function Layout() {
-  const {isAuthenticated , user} = useAuth0();
-  const {setUserDetails} = useContext(UserDetailContext)
+  const { isAuthenticated, user, getAccessTokenWithPopup } = useAuth0();
+  const { setUserDetails } = useContext(UserDetailContext);
 
-  const {mutate} = useMutation({
+  const { mutate } = useMutation({
     mutationKey: [user?.email],
-    mutationFn: () => createUser(user?.email)
-
-  })
-  useEffect ( ()=> {
-   isAuthenticated && mutate()
-  } , [isAuthenticated])
+    mutationFn: (token) => createUser(user?.email , token),
+  });
+  useEffect(() => {
+    const getTokenAndRegister = async () => {
+      const res = await getAccessTokenWithPopup({
+        authorizationParams: {
+          audience: "http://localhost:8000",
+          scope: "openid profile email"
+        }
+      })
+      localStorage.setItem("access_token", res);
+      setUserDetails((prev) => ({ ...prev, token: res }));
+      mutate(res)
+    };
+    isAuthenticated && getTokenAndRegister();
+  }, [isAuthenticated]);
 
   return (
     <>

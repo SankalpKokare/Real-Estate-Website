@@ -13,6 +13,8 @@ import "./Value.css";
 import data from "../../utils/accordion";
 
 function Value() {
+  const [expandedItem, setExpandedItem] = useState(null);
+
   return (
     <section className="v-wrapper">
       <div className="padding innerWidth flexCenter v-container">
@@ -30,41 +32,37 @@ function Value() {
           <span className="secondaryText">
             We always ready to help by providing the best services for you.
             <br />
-            We believe a good blace to live can make your life better
+            We believe a good place to live can make your life better
           </span>
 
           <Accordion
             className="accordion"
             allowMultipleExpanded={false}
             preExpanded={[0]}
+            onChange={(uuid) => setExpandedItem(uuid)}
           >
-            {data.map((item, i) => {
-              const [className, setClassname] = useState(null);
-              return (
-                <AccordionItem className={`accordionItem ${className}`} key={i} uuid={i}>
-                  <AccordionItemHeading>
-                    <AccordionItemButton className="flexCenter accordionButton">
-                      <AccordionItemState>
-                        {({ expanded }) =>
-                          expanded
-                            ? setClassname("expanded")
-                            : setClassname("collapse")
-                        }
-                      </AccordionItemState>
-
-                      <div className="flexCenter icon">{item.icon}</div>
-                      <span className="primaryText">{item.heading}</span>
-                      <div className="flexCenter icon">
-                        <MdOutlineArrowDropDown size={20} />
-                      </div>
-                    </AccordionItemButton>
-                  </AccordionItemHeading>
-                  <AccordionItemPanel>
-                    <p className="secondaryText">{item.detail}</p>
-                  </AccordionItemPanel>
-                </AccordionItem>
-              );
-            })}
+            {data.map((item, i) => (
+              <AccordionItem
+                className={`accordionItem ${
+                  expandedItem === i ? "expanded" : "collapse"
+                }`}
+                key={i}
+                uuid={i}
+              >
+                <AccordionItemHeading>
+                  <AccordionItemButton className="flexCenter accordionButton">
+                    <div className="flexCenter icon">{item.icon}</div>
+                    <span className="primaryText">{item.heading}</span>
+                    <div className="flexCenter icon">
+                      <MdOutlineArrowDropDown size={20} />
+                    </div>
+                  </AccordionItemButton>
+                </AccordionItemHeading>
+                <AccordionItemPanel>
+                  <p className="secondaryText">{item.detail}</p>
+                </AccordionItemPanel>
+              </AccordionItem>
+            ))}
           </Accordion>
         </div>
       </div>
